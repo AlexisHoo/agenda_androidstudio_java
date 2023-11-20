@@ -16,12 +16,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements calendarViewAdapter.onItemListener{
-    Button button;
-    // 6.33
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
-    private Button previousMonth, nextMonth;
+    private Button nextMonth;
+    private Button previousMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         previousMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedDate = selectedDate.minusMonths(-1);
+                selectedDate = selectedDate.minusMonths(1);
                 setMonthView();
             }
         });
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
-        for(int i=1; i <= 42;i++){
+        for(int i = 1; i <= 42; i++){
             if(i <= dayOfWeek || i > daysInMonth + dayOfWeek){
                 daysInMonthArray.add("");
 
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
     @Override
     public void onItemClick(int position, String dayText) {
 
-        if(dayText.equals("")){
+        if(!dayText.equals("")){
             String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
