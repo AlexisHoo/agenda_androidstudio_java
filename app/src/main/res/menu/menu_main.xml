@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/menu_planning"
+        android:title="Planning" />
+
+    <item
+        android:id="@+id/menu_jour"
+        android:title="Jour" />
+
+    <item
+        android:id="@+id/menu_3jours"
+        android:title="3 jours" />
+
+    <item
+        android:id="@+id/menu_semaine"
+        android:title="Semaine" />
+
+    <item
+        android:id="@+id/menu_mois"
+        android:title="Mois" />
+
+    <item
+        android:id="@+id/checkbox_event"
+        android:title="Events"
+        android:checkable="true"
+        app:actionViewClass="android.widget.CheckBox" />
+    <item
+        android:id="@+id/checkbox_task"
+        android:title="Tasks"
+        android:checkable="true"
+        app:actionViewClass="android.widget.CheckBox" />
+
+    <item
+        android:id="@+id/checkbox_birthday"
+        android:title="Birthdays"
+        android:checkable="true"
+        app:actionViewClass="android.widget.CheckBox" />
+
+    <item
+        android:id="@+id/checkbox_holiday"
+        android:title="Holidays"
+        android:checkable="true"
+        app:actionViewClass="android.widget.CheckBox" />
+
+    <item
+        android:id="@+id/menu_param"
+        android:title="Partameters" />
+
+    <item
+        android:id="@+id/menu_help"
+        android:title="Help" />
+</menu>
