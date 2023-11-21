@@ -141,6 +141,36 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="100dp"
+        android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="93dp"
+            android:layout_height="110dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp">
+
+            <ImageButton
+                android:id="@+id/plus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:adjustViewBounds="true"
+                android:background="@color/plus_color"
+                android:color="@color/grey"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img" />
+
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
         
 </LinearLayout>

@@ -5,4 +5,7 @@
     <color name="blue">#0000FF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey_white">#F5F5F5</color>
+    <color name="plus_color">#B7D9EC</color>
+    <color name="enregistrer">#0769A0</color>
+
 </resources>

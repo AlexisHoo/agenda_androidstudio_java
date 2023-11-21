@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="#FFFFFF" />
-    <stroke
-        android:width="15dp"
-        android:color="#CCCCCC" />
-    <corners android:radius="30dp" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+<corners android:radius="25dp"/> <!-- Modifier la valeur pour changer le rayon des coins -->
+<solid android:color="@color/plus_color"/> <!-- Remplacez "#YourBackgroundColor" par la couleur de fond souhaitée -->
 </shape>
