@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,32 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
                 setWeekView();
             }
         });
+
+        showMenuButton.setOnClickListener(v -> showPopupMenu(v));
+    }
+
+    private void showPopupMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v); // Création du PopupMenu associé au bouton
+        popupMenu.getMenuInflater().inflate(R.menu.menu_main, popupMenu.getMenu());
+
+        // Gestion des clics sur les éléments du menu
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.menu_planning) {
+                // Action à effectuer pour l'Option 1
+                return true;
+            } else if (item.getItemId() == R.id.menu_jour) {
+                // Action à effectuer pour l'Option 2
+                return true;
+            }
+            else if (item.getItemId() == R.id.menu_semaine) {
+
+                startActivity(new Intent( this, Weekly.class));
+                return true;
+            }
+            return false;
+        });
+
+        popupMenu.show(); // Affichage du menu contextuel
     }
 
 
@@ -75,10 +103,10 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
     }
 
     @Override
-    public void onItemClick(int position, String dayText) {
+    public void onItemClick(int position, LocalDate date) {
 
-        String message = "Selected Date " + dayText + " " + monthYearFromDate(CalendarUtils.selectedDate);
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        CalendarUtils.selectedDate = date;
+        setWeekView();
 
     }
 }

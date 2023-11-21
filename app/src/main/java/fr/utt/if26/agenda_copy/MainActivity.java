@@ -111,26 +111,15 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         monthYearText = findViewById(R.id.monthYearTv);
 
     }
-/*
-    public void previousMonth(View view){
-        selectedDate = selectedDate.minusMonths(-1);
-        setMonthView();
-    }
 
-    public void nextMonth(View view){
-        selectedDate = selectedDate.plusMonths(1);
-        setMonthView();
-    }
-
- */
 
 
     @Override
-    public void onItemClick(int position, String dayText) {
+    public void onItemClick(int position, LocalDate date) {
 
-        if(!dayText.equals("")){
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(CalendarUtils.selectedDate);
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        if(date != null){
+            CalendarUtils.selectedDate = date;
+            setMonthView();
         }
     }
 }
