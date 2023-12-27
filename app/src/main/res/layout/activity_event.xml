@@ -7,86 +7,218 @@
     android:layout_height="match_parent"
     tools:context=".Event">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".Event">
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginRight="220dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:id="@+id/exit"
-
-            android:background="@color/white"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_1">
-
-        </ImageButton>
-
-
-        <Button
-            android:id="@+id/enregistrer"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="2.7"
-            android:backgroundTint="@color/enregistrer"
-            android:text="Enregistrer">
-
-
-        </Button>
-
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/titre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:inputType="text"
-        android:text="Ajouter un titre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titre"
-        tools:context=".Event">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/myImageView"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:background="@color/white"
-            android:src="@drawable/img_3" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".Event">
 
-        <TextView
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_marginRight="220dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:id="@+id/exit"
+
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_1">
+
+            </ImageButton>
+
+            <Button
+                android:id="@+id/enregistrer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="2.7"
+                android:backgroundTint="@color/enregistrer"
+                android:text="Enregistrer"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="@+id/exit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+            </Button>
+
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/titre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toute la journée"
+            android:layout_marginStart="70dp"
+            android:inputType="text"
+            android:text="Ajouter un titre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titre"
+            tools:context=".Event">
+
+            <ImageView
+                android:id="@+id/myImageView"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_3" />
+
+            <TextView
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:text="Toute la journée"></TextView>
 
 
+            <CheckBox
+                android:id="@+id/myCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
 
-        <CheckBox
-            android:id="@+id/myCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titre"
+            tools:context=".Event">
+
+            <ImageView
+                android:id="@+id/earth_img"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_earth" />
+
+            <TextView
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:text="Heure normale d'Europe Centrale"></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titre"
+            tools:context=".Event">
+
+            <ImageView
+                android:id="@+id/arrow_img"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/zz" />
+
+            <TextView
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:text="Une seule fois"></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titre"
+            tools:context=".Event">
+
+            <ImageView
+                android:id="@+id/bell_img"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bell_img" />
+
+            <TextView
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:text="Ajouter une notification"></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titre"
+            tools:context=".Event">
+
+            <ImageView
+                android:id="@+id/color_img"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/color_img" />
+
+            <TextView
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:text="Couleur"></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titre"
+            tools:context=".Event">
+
+            <ImageView
+                android:id="@+id/text_img"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/text_img" />
+
+            <TextView
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:text="Ajouter une description"></TextView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
