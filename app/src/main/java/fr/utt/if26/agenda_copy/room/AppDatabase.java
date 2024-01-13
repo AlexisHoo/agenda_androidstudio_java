@@ -1,10 +1,13 @@
 package fr.utt.if26.agenda_copy.room;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import fr.utt.if26.agenda_copy.model.EventModel;
 
@@ -20,10 +23,35 @@ public abstract class AppDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     AppDatabase.class, "events")
                     .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
                     .build();
         }
 
         return instance;
+    }
+
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
+
+        }
+    };
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void,Void> {
+
+        private EventDao eventDao;
+        private PopulateDbAsyncTask(AppDatabase db){
+            eventDao = db.getEventDAO();
+
+        }
+        @Override
+        protected Void doInBackground(Void... voids){
+
+            eventDao.insertEvent(new EventModel("Anniversaire Alexis", "...", "tous les jours", "Europe", true, 15, "#0000FF"));
+            return null;
+        }
     }
 
 }

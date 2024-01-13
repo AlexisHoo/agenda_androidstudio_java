@@ -3,6 +3,9 @@ package fr.utt.if26.agenda_copy.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviderGetKt;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -16,6 +19,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.model.EventModel;
@@ -23,6 +29,8 @@ import fr.utt.if26.agenda_copy.room.AppDatabase;
 import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
 
 public class Event extends AppCompatActivity {
+
+    private eventViewModel eventVM;
 
     private CheckBox checkBox;
     private LinearLayout constance_layout, heure_layout, notification_layout, couleur_layout, description_layout;
@@ -39,6 +47,17 @@ public class Event extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        //ROOM
+        eventVM = ViewModelProvider.of(this).get(eventViewModel.class);
+        eventVM.getAllEvents().observe(this, new Observer<List<EventModel>>(){
+
+            @Override
+            public void onChanged(@NonNull List<EventModel> events){
+                Toast.makeText(Event.this, "OnChanged", Toast.LENGTH_SHORT).show();
+            }
+
+        });
 
         initWidgets();
 

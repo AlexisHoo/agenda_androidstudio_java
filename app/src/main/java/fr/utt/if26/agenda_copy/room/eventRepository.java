@@ -21,19 +21,25 @@ public class eventRepository {
 
     public void insert(EventModel eventModel){
 
+        new InsertEventAsyncTask(eventDao).execute(eventModel);
+
     }
 
     public void delete(EventModel eventModel){
-
+        new DeleteEventAsyncTask(eventDao).execute(eventModel);
     }
 
     public void update(EventModel eventModel){
-
+        new UpdateEventAsyncTask(eventDao).execute(eventModel);
     }
 
     public void getEvent(int id){
 
 
+    }
+
+    public LiveData<List<EventModel>> getAllEvents(){
+        return allEvents;
     }
 
     private static class InsertEventAsyncTask extends AsyncTask<EventModel, Void,Void> {
@@ -45,6 +51,32 @@ public class eventRepository {
         @Override
         protected Void doInBackground(EventModel... eventModels){
             eventDao.insertEvent(eventModels[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateEventAsyncTask extends AsyncTask<EventModel, Void,Void> {
+
+        private EventDao eventDao;
+        private UpdateEventAsyncTask(EventDao eventDao){
+            this.eventDao = eventDao;
+        }
+        @Override
+        protected Void doInBackground(EventModel... eventModels){
+            eventDao.updateEvent(eventModels[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteEventAsyncTask extends AsyncTask<EventModel, Void,Void> {
+
+        private EventDao eventDao;
+        private DeleteEventAsyncTask(EventDao eventDao){
+            this.eventDao = eventDao;
+        }
+        @Override
+        protected Void doInBackground(EventModel... eventModels){
+            eventDao.deleteEvent(eventModels[0]);
             return null;
         }
     }
