@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class Event extends AppCompatActivity {
     private LinearLayout constance_layout, heure_layout, notification_layout, couleur_layout, description_layout;
     private TextView txt_constance, txt_heure, txt_couleur, txt_notification;
     private Button couleur_button, enregistrer;
+    private ImageButton exit;
     EditText titre, description;
     public Event() {
     }
@@ -58,7 +60,14 @@ public class Event extends AppCompatActivity {
 
                 } else if (view == enregistrer) {
 
-                    EventModel eventModel = new EventModel(titre.getText().toString(), description.getText().toString(), eventViewModel.choix_radiobutton[0], eventViewModel.choix_radiobutton[1], checkBox.isChecked(), new Integer(eventViewModel.choix_radiobutton[3].substring(0,2)), eventViewModel.couleur);
+                    eventViewModel.creerEvent(titre.getText().toString(), description.getText().toString(), checkBox.isChecked());
+                    //startActivity(new Intent( getApplicationContext(), MainActivity.class));
+                    finish();
+
+                } else if (view == exit) {
+
+                    //startActivity(new Intent( getApplicationContext(), MainActivity.class));
+                    finish();
                 }
             }
         };
@@ -68,6 +77,7 @@ public class Event extends AppCompatActivity {
         couleur_layout.setOnClickListener(onClickListener);
         notification_layout.setOnClickListener(onClickListener);
         enregistrer.setOnClickListener(onClickListener);
+        exit.setOnClickListener(onClickListener);
     }
 
     private void initWidgets() {
@@ -84,9 +94,11 @@ public class Event extends AppCompatActivity {
         txt_heure = findViewById(R.id.txt_heure);
         txt_couleur = findViewById(R.id.txt_couleur);
         txt_notification = findViewById(R.id.txt_notification);
-        enregistrer = findViewById(R.id.couleur_button);
+        couleur_button = findViewById(R.id.couleur_button);
+        enregistrer = findViewById(R.id.enregistrer);
         titre = findViewById(R.id.titre);
         description = findViewById(R.id.description);
+        exit = findViewById(R.id.exit);
 
     }
 }

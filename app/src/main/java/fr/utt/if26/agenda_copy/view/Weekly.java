@@ -26,7 +26,7 @@ import fr.utt.if26.agenda_copy.viewmodel.calendarViewAdapter;
 public class Weekly extends AppCompatActivity implements calendarViewAdapter.onItemListener {
 
     private Button previousWeek, nextWeek;
-    private ImageButton showMenuButton;
+    private ImageButton showMenuButton, eventButton;
     private RecyclerView calendarRecyclerViewWeek;
     private TextView weekTV;
 
@@ -54,6 +54,13 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
             }
         });
 
+        eventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Event.class));
+            }
+        });
+
         showMenuButton.setOnClickListener(v -> showPopupMenu(v));
     }
 
@@ -73,6 +80,11 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
             else if (item.getItemId() == R.id.menu_semaine) {
 
                 startActivity(new Intent( this, Weekly.class));
+                return true;
+            }
+            else if (item.getItemId() == R.id.menu_mois) {
+
+                startActivity(new Intent( this, MainActivity.class));
                 return true;
             }
             return false;
@@ -101,6 +113,7 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
         showMenuButton = findViewById(R.id.burgerButton);
         calendarRecyclerViewWeek = findViewById(R.id.calendarRecyclerView_week);
         weekTV = findViewById(R.id.weekTv);
+        eventButton = findViewById(R.id.plus);
 
     }
 

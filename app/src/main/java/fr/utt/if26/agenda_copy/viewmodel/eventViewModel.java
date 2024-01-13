@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import java.io.Console;
 
 import fr.utt.if26.agenda_copy.R;
+import fr.utt.if26.agenda_copy.model.EventModel;
 
 public class eventViewModel {
     public static String[] choix_radiobutton = {"Tous les jours", "Heure normale d'Europe centrale", "Couleur par défaut","15"};
@@ -43,5 +44,12 @@ public class eventViewModel {
         });
 
         return builder;
+    }
+
+
+    public static void creerEvent(String titre, String description, Boolean box){
+
+        EventModel eventModel = new EventModel(titre, description, eventViewModel.choix_radiobutton[0], eventViewModel.choix_radiobutton[1], box, new Integer(eventViewModel.choix_radiobutton[3].substring(0,2)), eventViewModel.couleur);
+
     }
 }
