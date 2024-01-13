@@ -1,6 +1,13 @@
 package fr.utt.if26.agenda_copy.model;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+
+@Entity(tableName = "events")
 public class EventModel {
+
+    @PrimaryKey(autoGenerate = true)
+    public int event_id;
 
     private final String couleur;
     private String titre, description, constance, heure;
@@ -9,6 +16,14 @@ public class EventModel {
 
     public String getCouleur() {
         return couleur;
+    }
+
+    public long getId() {
+        return event_id;
+    }
+
+    public void setId(int id) {
+        this.event_id = event_id;
     }
 
     public EventModel(String titre, String description, String constance, String heure, boolean allday, int notification, String couleur) {

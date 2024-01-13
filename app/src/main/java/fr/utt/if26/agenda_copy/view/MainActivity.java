@@ -6,6 +6,7 @@ import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +19,12 @@ import android.widget.TextView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import fr.utt.if26.agenda_copy.room.AppDatabase;
 import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.viewmodel.calendarViewAdapter;
+import android.app.Application;
+import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity implements calendarViewAdapter.onItemListener {
     private TextView monthYearText;
@@ -29,12 +33,16 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
     private Button previousMonth;
     private ImageButton showMenuButton, eventButton;
     //private GestureDetector gestureDetector;
-    //4.10
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //ROOM
+        //setContentView(R.layout.activity_main);
+        //AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "mydatabase").build();
+
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
@@ -65,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         });
 
     }
+
+
 
     private void showPopupMenu(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v); // Création du PopupMenu associé au bouton

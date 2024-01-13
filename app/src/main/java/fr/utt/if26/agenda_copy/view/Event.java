@@ -1,7 +1,11 @@
 package fr.utt.if26.agenda_copy.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.model.EventModel;
+import fr.utt.if26.agenda_copy.room.AppDatabase;
 import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
 
 public class Event extends AppCompatActivity {
@@ -25,6 +30,8 @@ public class Event extends AppCompatActivity {
     private Button couleur_button, enregistrer;
     private ImageButton exit;
     EditText titre, description;
+    //ROOM
+
     public Event() {
     }
 
@@ -32,6 +39,7 @@ public class Event extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
         initWidgets();
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
