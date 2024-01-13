@@ -14,11 +14,14 @@ import java.io.Console;
 
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.model.EventModel;
+import fr.utt.if26.agenda_copy.view.Event;
 
 public class eventViewModel {
     public static String[] choix_radiobutton = {"Tous les jours", "Heure normale d'Europe centrale", "Couleur par défaut","15"};
     public static String[] choix_couleur = {"#0000FF","#D50000","#0B8043","#E67C73"};
     public static String couleur = "#0000FF";
+    public static EventModel eventModel;
+    public static String titre;
     public static AlertDialog.Builder afficherDialogConstance(Context context, String[] options, int choix, TextView txt, Button button) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
@@ -49,7 +52,8 @@ public class eventViewModel {
 
     public static void creerEvent(String titre, String description, Boolean box){
 
-        EventModel eventModel = new EventModel(titre, description, eventViewModel.choix_radiobutton[0], eventViewModel.choix_radiobutton[1], box, new Integer(eventViewModel.choix_radiobutton[3].substring(0,2)), eventViewModel.couleur);
-
+        eventViewModel.eventModel = new EventModel(titre, description, eventViewModel.choix_radiobutton[0], eventViewModel.choix_radiobutton[1], box, new Integer(eventViewModel.choix_radiobutton[3].substring(0,2)), eventViewModel.couleur);
+        eventViewModel.titre = titre;
+        eventViewModel.couleur = eventViewModel.couleur;
     }
 }

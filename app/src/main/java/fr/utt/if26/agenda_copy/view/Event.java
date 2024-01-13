@@ -61,8 +61,8 @@ public class Event extends AppCompatActivity {
                 } else if (view == enregistrer) {
 
                     eventViewModel.creerEvent(titre.getText().toString(), description.getText().toString(), checkBox.isChecked());
-                    //startActivity(new Intent( getApplicationContext(), MainActivity.class));
-                    finish();
+                    startActivity(new Intent( getApplicationContext(), MainActivity.class));
+                    //finish();
 
                 } else if (view == exit) {
 

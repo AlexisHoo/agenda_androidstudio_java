@@ -34,7 +34,7 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
 
         if(days.size() > 15)
-            layoutParams.height = (int) (parent.getHeight() * 0.25);
+            layoutParams.height = (int) (parent.getHeight() * 0.30);
         else
             layoutParams.height = (int) parent.getHeight();
 
@@ -51,9 +51,12 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             if(date.equals(CalendarUtils.selectedDate)){
 
+                String titre = eventViewModel.titre;
                 holder.parentView.setBackgroundColor(Color.LTGRAY);
-                holder.event_text.setText("OUAIIIIIIIS");
-                holder.event_text.setTextColor(Color.BLACK);
+                holder.event_text.setText(titre);
+                holder.event_text.setTextColor(Color.WHITE);
+                //holder.event_text.setBackgroundColor(Color.parseColor(eventViewModel.eventModel.getCouleur()));
+                holder.event_text.setBackgroundColor(Color.parseColor(eventViewModel.couleur));
             }
         }
 
