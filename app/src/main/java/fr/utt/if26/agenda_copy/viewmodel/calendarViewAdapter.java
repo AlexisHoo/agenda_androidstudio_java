@@ -1,4 +1,5 @@
-package fr.utt.if26.agenda_copy;
+package fr.utt.if26.agenda_copy.viewmodel;
+
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -10,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import fr.utt.if26.agenda_copy.R;
+import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
+import fr.utt.if26.agenda_copy.viewmodel.calendarViewHolder;
 
 public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder> {
 
@@ -47,10 +52,13 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
             if(date.equals(CalendarUtils.selectedDate)){
 
                 holder.parentView.setBackgroundColor(Color.LTGRAY);
+                holder.event_text.setText("OUAIIIIIIIS");
+                holder.event_text.setTextColor(Color.BLACK);
             }
         }
 
     }
+
 
     @Override
     public int getItemCount() {

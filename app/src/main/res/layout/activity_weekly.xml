@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Weekly">
+    tools:context=".view.Weekly">
 
     <Button
         android:id="@+id/week_title"

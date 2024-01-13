@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Event">
+    tools:context=".view.Event">
 
 
 
@@ -21,7 +21,7 @@
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".Event">
+            tools:context=".view.Event">
 
             <ImageButton
                 android:layout_width="0dp"
@@ -74,7 +74,7 @@
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
-            tools:context=".Event">
+            tools:context=".view.Event">
 
             <ImageView
                 android:id="@+id/myImageView"
@@ -102,11 +102,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/layout_heure"
             android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
-            tools:context=".Event">
+            tools:context=".view.Event">
 
             <ImageView
                 android:id="@+id/earth_img"
@@ -118,19 +119,22 @@
                 android:src="@drawable/img_earth" />
 
             <TextView
+                android:id="@+id/txt_heure"
                 android:layout_width="306dp"
                 android:layout_height="wrap_content"
-                android:text="Heure normale d'Europe Centrale"></TextView>
+                android:text="Heure normale d'Europe Centrale"
+                android:layout_gravity="center_vertical"></TextView>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/layout_constance"
             android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
-            tools:context=".Event">
+            tools:context=".view.Event">
 
             <ImageView
                 android:id="@+id/arrow_img"
@@ -139,22 +143,25 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
-                android:src="@drawable/zz" />
+                android:src="@drawable/img_earth"/>
 
             <TextView
+                android:id="@+id/txt_constance"
                 android:layout_width="306dp"
                 android:layout_height="wrap_content"
-                android:text="Une seule fois"></TextView>
+                android:text="Une seule fois"
+                android:layout_gravity="center_vertical"></TextView>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/layout_notification"
             android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
-            tools:context=".Event">
+            tools:context=".view.Event">
 
             <ImageView
                 android:id="@+id/bell_img"
@@ -163,46 +170,55 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
-                android:src="@drawable/bell_img" />
+                android:src="@drawable/img_earth"
+                 />
 
             <TextView
+                android:id="@+id/txt_notification"
                 android:layout_width="306dp"
                 android:layout_height="wrap_content"
-                android:text="Ajouter une notification"></TextView>
+                android:text="Ajouter une notification"
+                android:layout_gravity="center_vertical"></TextView>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/layout_couleur"
             android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
-            tools:context=".Event">
+            tools:context=".view.Event">
 
-            <ImageView
-                android:id="@+id/color_img"
+            <Button
+                android:id="@+id/couleur_button"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/color_img" />
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/enregistrer">
+
+
+            </Button>
+
+
 
             <TextView
+                android:id="@+id/txt_couleur"
                 android:layout_width="306dp"
                 android:layout_height="wrap_content"
-                android:text="Couleur"></TextView>
+                android:text="Couleur"
+                android:layout_gravity="center_vertical"></TextView>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/layout_description"
             android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
-            tools:context=".Event">
+            tools:context=".view.Event">
 
             <ImageView
                 android:id="@+id/text_img"
@@ -211,12 +227,18 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
-                android:src="@drawable/text_img" />
+                android:src="@drawable/img_earth"/>
 
-            <TextView
-                android:layout_width="306dp"
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ajouter une description"></TextView>
+                android:layout_weight="1"
+                android:ems="10"
+                android:textSize="14sp"
+                android:inputType=""
+                android:text="Ajouter une description" />
+
 
         </LinearLayout>
 

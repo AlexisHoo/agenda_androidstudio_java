@@ -1,8 +1,7 @@
-package fr.utt.if26.agenda_copy;
+package fr.utt.if26.agenda_copy.view;
 
-import static fr.utt.if26.agenda_copy.CalendarUtils.daysInMonthArray;
-import static fr.utt.if26.agenda_copy.CalendarUtils.daysInWeekArray;
-import static fr.utt.if26.agenda_copy.CalendarUtils.monthYearFromDate;
+import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.daysInWeekArray;
+import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,13 +14,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
+import fr.utt.if26.agenda_copy.R;
+import fr.utt.if26.agenda_copy.viewmodel.calendarViewAdapter;
 //1:47
 
-public class Weekly extends AppCompatActivity implements calendarViewAdapter.onItemListener{
+public class Weekly extends AppCompatActivity implements calendarViewAdapter.onItemListener {
 
     private Button previousWeek, nextWeek;
     private ImageButton showMenuButton;
@@ -107,6 +109,5 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
 
         CalendarUtils.selectedDate = date;
         setWeekView();
-
     }
 }

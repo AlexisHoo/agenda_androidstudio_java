@@ -1,37 +1,33 @@
-package fr.utt.if26.agenda_copy;
+package fr.utt.if26.agenda_copy.view;
 
-import static fr.utt.if26.agenda_copy.CalendarUtils.daysInMonthArray;
-import static fr.utt.if26.agenda_copy.CalendarUtils.monthYearFromDate;
+import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.daysInMonthArray;
+import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements calendarViewAdapter.onItemListener{
+import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
+import fr.utt.if26.agenda_copy.R;
+import fr.utt.if26.agenda_copy.viewmodel.calendarViewAdapter;
+
+public class MainActivity extends AppCompatActivity implements calendarViewAdapter.onItemListener {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private Button nextMonth;
     private Button previousMonth;
-    private ImageButton showMenuButton;
+    private ImageButton showMenuButton, eventButton;
     //private GestureDetector gestureDetector;
     //4.10
 
@@ -61,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
             }
         });
 
+        eventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Event.class));
+            }
+        });
+
     }
 
     private void showPopupMenu(View v) {
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
                 // Action à effectuer pour l'Option 1
                 return true;
             } else if (item.getItemId() == R.id.menu_jour) {
-                // Action à effectuer pour l'Option 2
+
                 return true;
             }
             else if (item.getItemId() == R.id.menu_semaine) {
@@ -109,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         nextMonth = findViewById(R.id.nextMonth);
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.monthYearTv);
+        eventButton = findViewById(R.id.plus);
 
     }
 

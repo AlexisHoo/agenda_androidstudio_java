@@ -1,4 +1,4 @@
-package fr.utt.if26.agenda_copy;
+package fr.utt.if26.agenda_copy.viewmodel;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
