@@ -1,7 +1,6 @@
 package fr.utt.if26.agenda_copy.viewmodel;
 
 
-import static fr.utt.if26.agenda_copy.viewmodel.eventViewModel.eventDB;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
 import fr.utt.if26.agenda_copy.viewmodel.calendarViewHolder;
 
 public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder> {
+    private eventViewModel eventVM;
 
     private final ArrayList<LocalDate> days;
     private final onItemListener onItemListener;
@@ -54,15 +56,10 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             if(date.equals(CalendarUtils.selectedDate)){
 
-                String titre = eventViewModel.titre;
-                //EventModel test = eventDB.getEventDAO().getEvent(0);
-
-
                 holder.parentView.setBackgroundColor(Color.LTGRAY);
-                holder.event_text.setText(titre);
+                //holder.event_text.setText(eventVM.getAllEvents().getValue().get(0).getTitre());
+
                 holder.event_text.setTextColor(Color.WHITE);
-                //holder.event_text.setBackgroundColor(Color.parseColor(eventViewModel.eventModel.getCouleur()));
-                //holder.event_text.setBackgroundColor(Color.parseColor(test.getCouleur()));
             }
         }
 

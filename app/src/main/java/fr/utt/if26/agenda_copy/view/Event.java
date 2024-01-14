@@ -12,6 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,39 +27,23 @@ import java.util.List;
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.model.EventModel;
 import fr.utt.if26.agenda_copy.room.AppDatabase;
+import fr.utt.if26.agenda_copy.viewmodel.eventAddUtils;
 import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
 
 public class Event extends AppCompatActivity {
 
-    private eventViewModel eventVM;
-
+    eventAddUtils eventUtils;
     private CheckBox checkBox;
     private LinearLayout constance_layout, heure_layout, notification_layout, couleur_layout, description_layout;
     private TextView txt_constance, txt_heure, txt_couleur, txt_notification;
     private Button couleur_button, enregistrer;
     private ImageButton exit;
     EditText titre, description;
-    //ROOM
-
-    public Event() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-
-        //ROOM
-        eventVM = ViewModelProvider.of(this).get(eventViewModel.class);
-        eventVM.getAllEvents().observe(this, new Observer<List<EventModel>>(){
-
-            @Override
-            public void onChanged(@NonNull List<EventModel> events){
-                Toast.makeText(Event.this, "OnChanged", Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
         initWidgets();
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -67,29 +52,40 @@ public class Event extends AppCompatActivity {
 
                 if (view == heure_layout) {
                     final String[] options = {"Heure normale d'Europe centrale", "Heure normale d'Amérique Centrale"};
-                    AlertDialog.Builder dialog = eventViewModel.afficherDialogConstance(Event.this, options, 0, txt_heure, couleur_button);
+                    AlertDialog.Builder dialog = eventUtils.afficherDialogConstance(Event.this, options, 0, txt_heure, couleur_button);
                     dialog.show();
 
                 } else if (view == constance_layout) {
                     final String[] options = {"Une seule fois", "Tous les jours", "Toutes les semaines", "Tous les mois", "Tous les ans"};
-                    AlertDialog.Builder dialog = eventViewModel.afficherDialogConstance(Event.this, options, 1, txt_constance, couleur_button);
+                    AlertDialog.Builder dialog = eventUtils.afficherDialogConstance(Event.this, options, 1, txt_constance, couleur_button);
                     dialog.show();
 
                 } else if (view == couleur_layout) {
                     final String[] options = {"Couleur par défaut", "Tomate", "Basilic", "Flamant Rose"};
-                    AlertDialog.Builder dialog = eventViewModel.afficherDialogConstance(Event.this, options, 2, txt_couleur, couleur_button);
+                    AlertDialog.Builder dialog = eventUtils.afficherDialogConstance(Event.this, options, 2, txt_couleur, couleur_button);
                     dialog.show();
 
                 } else if (view == notification_layout) {
                 final String[] options = {"15 minutes avant", "30 minutes avant", "1 heure avant", "24 heures avant"};
-                AlertDialog.Builder dialog = eventViewModel.afficherDialogConstance(Event.this, options, 3, txt_notification, couleur_button);
+                AlertDialog.Builder dialog = eventUtils.afficherDialogConstance(Event.this, options, 3, txt_notification, couleur_button);
                 dialog.show();
 
                 } else if (view == enregistrer) {
 
-                    eventViewModel.creerEvent(titre.getText().toString(), description.getText().toString(), checkBox.isChecked());
-                    startActivity(new Intent( getApplicationContext(), MainActivity.class));
-                    //finish();
+
+                    //startActivity(new Intent( getApplicationContext(), MainActivity.class));
+
+                    Intent data = new Intent();
+                    data.putExtra("Titre", titre.getText().toString());
+                    data.putExtra("Description", description.getText().toString());
+                    data.putExtra("constance",eventUtils.choix_radiobutton[0]);
+                    data.putExtra("heure", eventUtils.choix_radiobutton[1]);
+                    data.putExtra("allday", checkBox.isChecked());
+                    data.putExtra("notification", new Integer(eventUtils.choix_radiobutton[3].substring(0,2)));
+                    data.putExtra("couleur", eventUtils.couleur);
+
+                    setResult(RESULT_OK, data);
+                    finish();
 
                 } else if (view == exit) {
 

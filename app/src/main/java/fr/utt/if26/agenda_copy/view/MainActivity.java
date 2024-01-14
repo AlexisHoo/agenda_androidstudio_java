@@ -3,13 +3,18 @@ package fr.utt.if26.agenda_copy.view;
 import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.daysInMonthArray;
 import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,12 +23,18 @@ import android.widget.TextView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import fr.utt.if26.agenda_copy.model.EventModel;
 import fr.utt.if26.agenda_copy.room.AppDatabase;
 import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.viewmodel.calendarViewAdapter;
+import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
+
 import android.app.Application;
+import android.widget.Toast;
+
 import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity implements calendarViewAdapter.onItemListener {
@@ -34,14 +45,25 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
     private ImageButton showMenuButton, eventButton;
     //private GestureDetector gestureDetector;
 
+    private eventViewModel eventVM;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //ROOM
-        //setContentView(R.layout.activity_main);
-        //AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "mydatabase").build();
+        eventVM = new ViewModelProvider(this).get(eventViewModel .class);
+        eventVM.getAllEvents().observe(this, new Observer<List<EventModel>>(){
+
+            @Override
+            public void onChanged(@NonNull List<EventModel> events){
+                Toast.makeText(MainActivity.this, "OnChanged", Toast.LENGTH_SHORT).show();
+            }
+
+        });
 
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
@@ -68,13 +90,32 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Event.class));
-            }
+                //startActivity(new Intent(getApplicationContext(), Event.class));
+                Intent intent = new Intent(MainActivity.this, Event.class);
+                startActivityForResult(intent, 1);
+
+                String toast = eventVM.getAllEvents().getValue().get( eventVM.getAllEvents().getValue().size() -1 ).getTitre();
+              }
         });
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        String title = data.getStringExtra("Titre");
+        String description = data.getStringExtra("Description");
+        String constance = data.getStringExtra("constance");
+        String heure = data.getStringExtra("heure");
+        Boolean allday = data.getBooleanExtra("allday", false);
+        int notification = data.getIntExtra("notification", 15);
+        String couleur = data.getStringExtra("couleur");
+
+        EventModel eventModel = new EventModel(title, description, constance, heure, allday, notification, couleur);
+
+        eventVM.insert(eventModel);
+    }
 
     private void showPopupMenu(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v); // Création du PopupMenu associé au bouton
@@ -105,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+
+        ArrayList<Object> dayEventList = new ArrayList<>();
 
         calendarViewAdapter calendarAdapter = new calendarViewAdapter(daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
