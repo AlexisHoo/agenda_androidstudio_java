@@ -2,12 +2,13 @@ package fr.utt.if26.agenda_copy.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.Month;
 
 
 @Entity(tableName = "events")
-public class EventModel {
+public class EventModel implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int event_id;

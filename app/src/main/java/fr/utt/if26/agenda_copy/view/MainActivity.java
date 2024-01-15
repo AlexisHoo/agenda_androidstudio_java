@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
             @Override
             public void onChanged(@NonNull List<EventModel> events){
-                Toast.makeText(MainActivity.this, "OnChanged", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "OnChanged", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
-        Log.d("TAILLE MONTHLIST", "TAILLE MONTHLIST" + daysInMonth.size());
+        //Log.d("TAILLE MONTHLIST", "TAILLE MONTHLIST" + daysInMonth.size());
 
         ArrayList<DayModel> dayEventList = new ArrayList<>();
         for(int i = 0 ; i <daysInMonth.size(); i++){
@@ -176,12 +177,12 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
                         titreString = event.get(0).getTitre().toString();
                     }
 
-                    Log.d("EVENT TROUVE", event.get(0).getTitre().toString());
+                    //Log.d("EVENT TROUVE", event.get(0).getTitre().toString());
                     DayModel day = new DayModel(titreString, LocalDate.of(annee, mois, jour), event.get(0).getCouleur());
                     dayEventList.add(day);
 
                 } else {
-                    Log.d("PAS TROUVE", "PAS TROUVE");
+                    //Log.d("PAS TROUVE", "PAS TROUVE");
                     DayModel day = new DayModel("", LocalDate.of(annee, mois, jour), "#FFFFFFFF");
                     dayEventList.add(day);
                 }
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
                 DayModel day = new DayModel("", null, "#FFFFFFFF");
                 dayEventList.add(day);
-                Log.d("NULL", "NULL");
+                //Log.d("NULL", "NULL");
             }
         }
 
@@ -226,16 +227,22 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
     public void onItemClick(int position, DayModel day) {
 
         if(day != null){
-            CalendarUtils.selectedDate = day.getDate();
-            setMonthView();
+
+            if(day.getDate().compareTo(CalendarUtils.selectedDate) == 0){
+
+                Toast.makeText(this, "MEME DATE", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AffichageDaily.class);
+                List<EventModel> eventList = eventVM.getEvent(day.getDate().getYear(), day.getDate().getMonthValue(), day.getDate().getDayOfMonth());
+                intent.putExtra("listeEvenements", (Serializable) eventList); // Utilisez "parcelable" si vous avez implémenté Parcelable
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(this, "PAS MEME DATE", Toast.LENGTH_SHORT).show();
+                CalendarUtils.selectedDate = day.getDate();
+                setMonthView();
+            }
+
         }
     }
 
-    @Override
-    public void onItemLongClick(int position, DayModel day) {
-
-        if(day != null){
-            //On change d'activité
-        }
-    }
 }

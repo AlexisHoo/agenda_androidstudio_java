@@ -219,4 +219,5 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
         CalendarUtils.selectedDate = day.getDate();
         setWeekView();
     }
+
 }
