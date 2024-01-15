@@ -35,7 +35,7 @@ public class eventRepository {
         new UpdateEventAsyncTask(eventDao).execute(eventModel);
     }
 
-    @Query("select * from events where annee==:annee and mois==:mois and jour==:jour")
+    //@Query("select events.titre from events where annee==:annee and mois==:mois and jour==:jour")
     public EventModel getEvent(int annee, int mois, int jour){
 
         return eventDao.getEvent(annee, mois, jour);

@@ -42,7 +42,7 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
 
         if(dayEventList.size() > 15)
-            layoutParams.height = (int) (parent.getHeight() * 0.30);
+            layoutParams.height = (int) (parent.getHeight() * 0.266666);
         else
             layoutParams.height = (int) parent.getHeight();
 
@@ -56,6 +56,7 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
         if(day.getDate() == null)
             holder.dayOfMonth.setText("");
         else{
+
             holder.dayOfMonth.setText(String.valueOf(day.getDate().getDayOfMonth()));
             int couleurInt = Color.parseColor(day.getCouleur());
             holder.event_text.setBackgroundColor(couleurInt);

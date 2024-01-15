@@ -128,7 +128,7 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
             int annee = days.get(i).getYear();
             int mois = days.get(i).getMonthValue();
             int jour = days.get(i).getDayOfWeek().getValue();
-
+            /*
             EventModel event = eventVM.getEvent(annee, mois, jour);
             if (event != null){
 
@@ -139,6 +139,8 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
                 DayModel day = new DayModel("", days.get(i), "#FFFFFFFF");
                 dayEventList.add(day);
             }
+
+             */
 
         }
 

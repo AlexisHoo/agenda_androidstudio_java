@@ -18,6 +18,7 @@ public class EventModel {
     private int notification;
     private int annee;
 
+
     public int getAnnee() {
         return annee;
     }
@@ -69,6 +70,7 @@ public class EventModel {
         this.annee = annee;
         this.mois = mois;
         this.jour = jour;
+        this.event_id = 0;
     }
 
     public String getTitre() {

@@ -9,9 +9,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.time.LocalDate;
+
 import fr.utt.if26.agenda_copy.model.EventModel;
 
-@Database(entities = {EventModel.class}, version = 2)
+@Database(entities = {EventModel.class}, version = 7)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
@@ -24,6 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     AppDatabase.class, "events")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
+                    .allowMainThreadQueries()
                     .build();
         }
 
@@ -49,7 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids){
 
-            eventDao.insertEvent(new EventModel("Anniversaire Alexis", "...", "tous les jours", "Europe", true, 15, "#0000FF", 2024, 01, 5));
+            eventDao.insertEvent(new EventModel("Anniversaire Alexis", "...", "tous les jours", "Europe", true, 15, "#0000FF", 2024, 1, 1));
             return null;
         }
     }

@@ -6,6 +6,7 @@ import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
         });
 
+
+
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
@@ -121,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         //Log.d("EVENT CREEE",  "EVENT CREEE" +  anneeE + moisE + jourE );
         Toast.makeText(this, "EVENT CREEE" +  anneeE + moisE + jourE, Toast.LENGTH_SHORT).show();
         eventVM.insert(eventModel);
+
+        setMonthView();
     }
 
     private void showPopupMenu(View v) {
@@ -150,61 +155,51 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
     private void setMonthView() {
 
+
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+        Log.d("TAILLE MONTHLIST", "TAILLE MONTHLIST" + daysInMonth.size());
 
         ArrayList<DayModel> dayEventList = new ArrayList<>();
         for(int i = 0 ; i <daysInMonth.size(); i++){
 
-            if(daysInMonth.get(i) != null){
+            if(daysInMonth.get(i) != null) {
 
                 //Event avec la date du jour
                 int annee = daysInMonth.get(i).getYear();
                 int mois = daysInMonth.get(i).getMonthValue();
                 int jour = daysInMonth.get(i).getDayOfMonth();
 
-                //Log.d("TEST", "DATE"+ annee + mois + jour );
-                if(eventVM.getAllEvents().getValue() != null){
-                    String anneeE = Integer.toString( eventVM.getAllEvents().getValue().get(0).getAnnee() );
-                    String moisE = Integer.toString( eventVM.getAllEvents().getValue().get(0).getMois() );
-                    String jourE = Integer.toString( eventVM.getAllEvents().getValue().get(0).getJour() );
-                    //Log.d("TEST",  "DATE EVENT" +  anneeE + moisE + jourE );
-                }
-
-
                 EventModel event = eventVM.getEvent(annee, mois, jour);
+                if (event != null) {
 
-                if (event != null){
-
-                    String anneeE = Integer.toString( event.getAnnee() );
-                    String moisE = Integer.toString( event.getMois() );
-                    String jourE = Integer.toString( event.getJour() );
-                    //Log.d("TEST",  "DATE EVENT" +  anneeE + moisE + jourE );
-                    Toast.makeText(this, "EVENT TROUVE" +  anneeE + moisE + jourE, Toast.LENGTH_SHORT).show();
                     Log.d("EVENT TROUVE", event.getTitre().toString());
-                    DayModel day = new DayModel(event.getTitre(), daysInMonth.get(i), event.getCouleur());
+                    DayModel day = new DayModel(event.getTitre().toString(), LocalDate.of(annee, mois, jour), event.getCouleur());
                     dayEventList.add(day);
-                }else{
-
-                    DayModel day = new DayModel("hhhhhh", daysInMonth.get(i), "#0000FF");
+                } else {
+                    Log.d("PAS TROUVE", "PAS TROUVE");
+                    DayModel day = new DayModel("", LocalDate.of(annee, mois, jour), "#FFFFFFFF");
                     dayEventList.add(day);
                 }
+
 
             }
 
             else{
 
-                DayModel day = new DayModel("hhhhhh", null, "#0000FF");
+                DayModel day = new DayModel("", null, "#FFFFFFFF");
                 dayEventList.add(day);
-                //Log.d("EVENT NON TROUVE", "EVENT NON TROUVE");
+                Log.d("NULL", "NULL");
             }
         }
 
+        Log.d("TAILLE EVENTLIST", "TAILLE EVENTLIST" + dayEventList.size());
 
         calendarViewAdapter calendarAdapter = new calendarViewAdapter(dayEventList, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+
 
     }
 
