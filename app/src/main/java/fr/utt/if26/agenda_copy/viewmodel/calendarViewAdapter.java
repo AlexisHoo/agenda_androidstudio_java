@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import fr.utt.if26.agenda_copy.R;
+import fr.utt.if26.agenda_copy.model.DayModel;
 import fr.utt.if26.agenda_copy.model.EventModel;
 import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
 import fr.utt.if26.agenda_copy.viewmodel.calendarViewHolder;
@@ -23,11 +24,13 @@ import fr.utt.if26.agenda_copy.viewmodel.calendarViewHolder;
 public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder> {
     private eventViewModel eventVM;
 
-    private final ArrayList<LocalDate> days;
+    //private final ArrayList<LocalDate> days;
+
+    private final ArrayList<DayModel> dayEventList;
     private final onItemListener onItemListener;
 
-    public calendarViewAdapter(ArrayList<LocalDate> days, onItemListener onItemListener) {
-        this.days = days;
+    public calendarViewAdapter(ArrayList<DayModel> dayEventList, onItemListener onItemListener) {
+        this.dayEventList = dayEventList;
         this.onItemListener = onItemListener;
     }
 
@@ -38,28 +41,30 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
         View view = inflater.inflate(R.layout.calendar_cell, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
 
-        if(days.size() > 15)
+        if(dayEventList.size() > 15)
             layoutParams.height = (int) (parent.getHeight() * 0.30);
         else
             layoutParams.height = (int) parent.getHeight();
 
-        return new calendarViewHolder(view, onItemListener, days);
+        return new calendarViewHolder(view, onItemListener, dayEventList);
     }
 
     @Override
     public void onBindViewHolder(@NonNull calendarViewHolder holder, int position) {
-        final LocalDate date = days.get(position);
+        final DayModel day = dayEventList.get(position);
 
-        if(date == null)
+        if(day.getDate() == null)
             holder.dayOfMonth.setText("");
         else{
-            holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
-            if(date.equals(CalendarUtils.selectedDate)){
+            holder.dayOfMonth.setText(String.valueOf(day.getDate().getDayOfMonth()));
+            int couleurInt = Color.parseColor(day.getCouleur());
+            holder.event_text.setBackgroundColor(couleurInt);
+            holder.event_text.setText(day.getTitle());
+            holder.event_text.setTextColor(Color.WHITE);
+
+            if(day.getDate().equals(CalendarUtils.selectedDate)){
 
                 holder.parentView.setBackgroundColor(Color.LTGRAY);
-                //holder.event_text.setText(eventVM.getAllEvents().getValue().get(0).getTitre());
-
-                holder.event_text.setTextColor(Color.WHITE);
             }
         }
 
@@ -68,11 +73,11 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
 
     @Override
     public int getItemCount() {
-        return days.size();
+        return dayEventList.size();
     }
 
     public interface onItemListener{
-        void onItemClick(int position, LocalDate date);
+        void onItemClick(int position, DayModel day);
     }
 }
 

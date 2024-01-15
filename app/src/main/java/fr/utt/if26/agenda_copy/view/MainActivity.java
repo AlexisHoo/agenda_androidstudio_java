@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.utt.if26.agenda_copy.model.DayModel;
 import fr.utt.if26.agenda_copy.model.EventModel;
 import fr.utt.if26.agenda_copy.room.AppDatabase;
 import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
                 Intent intent = new Intent(MainActivity.this, Event.class);
                 startActivityForResult(intent, 1);
 
-                String toast = eventVM.getAllEvents().getValue().get( eventVM.getAllEvents().getValue().size() -1 ).getTitre();
+                //String toast = eventVM.getAllEvents().getValue().get( eventVM.getAllEvents().getValue().size() -1 ).getTitre();
               }
         });
 
@@ -112,8 +113,13 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         int notification = data.getIntExtra("notification", 15);
         String couleur = data.getStringExtra("couleur");
 
-        EventModel eventModel = new EventModel(title, description, constance, heure, allday, notification, couleur);
 
+        EventModel eventModel = new EventModel(title, description, constance, heure, allday, notification, couleur, CalendarUtils.selectedDate.getYear(), CalendarUtils.selectedDate.getMonth().getValue(), CalendarUtils.selectedDate.getDayOfMonth());
+        String anneeE = Integer.toString( CalendarUtils.selectedDate.getYear() );
+        String moisE = Integer.toString( CalendarUtils.selectedDate.getMonth().getValue() );
+        String jourE = Integer.toString( CalendarUtils.selectedDate.getDayOfMonth());
+        //Log.d("EVENT CREEE",  "EVENT CREEE" +  anneeE + moisE + jourE );
+        Toast.makeText(this, "EVENT CREEE" +  anneeE + moisE + jourE, Toast.LENGTH_SHORT).show();
         eventVM.insert(eventModel);
     }
 
@@ -147,9 +153,55 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
 
-        ArrayList<Object> dayEventList = new ArrayList<>();
+        ArrayList<DayModel> dayEventList = new ArrayList<>();
+        for(int i = 0 ; i <daysInMonth.size(); i++){
 
-        calendarViewAdapter calendarAdapter = new calendarViewAdapter(daysInMonth, this);
+            if(daysInMonth.get(i) != null){
+
+                //Event avec la date du jour
+                int annee = daysInMonth.get(i).getYear();
+                int mois = daysInMonth.get(i).getMonthValue();
+                int jour = daysInMonth.get(i).getDayOfMonth();
+
+                //Log.d("TEST", "DATE"+ annee + mois + jour );
+                if(eventVM.getAllEvents().getValue() != null){
+                    String anneeE = Integer.toString( eventVM.getAllEvents().getValue().get(0).getAnnee() );
+                    String moisE = Integer.toString( eventVM.getAllEvents().getValue().get(0).getMois() );
+                    String jourE = Integer.toString( eventVM.getAllEvents().getValue().get(0).getJour() );
+                    //Log.d("TEST",  "DATE EVENT" +  anneeE + moisE + jourE );
+                }
+
+
+                EventModel event = eventVM.getEvent(annee, mois, jour);
+
+                if (event != null){
+
+                    String anneeE = Integer.toString( event.getAnnee() );
+                    String moisE = Integer.toString( event.getMois() );
+                    String jourE = Integer.toString( event.getJour() );
+                    //Log.d("TEST",  "DATE EVENT" +  anneeE + moisE + jourE );
+                    Toast.makeText(this, "EVENT TROUVE" +  anneeE + moisE + jourE, Toast.LENGTH_SHORT).show();
+                    Log.d("EVENT TROUVE", event.getTitre().toString());
+                    DayModel day = new DayModel(event.getTitre(), daysInMonth.get(i), event.getCouleur());
+                    dayEventList.add(day);
+                }else{
+
+                    DayModel day = new DayModel("hhhhhh", daysInMonth.get(i), "#0000FF");
+                    dayEventList.add(day);
+                }
+
+            }
+
+            else{
+
+                DayModel day = new DayModel("hhhhhh", null, "#0000FF");
+                dayEventList.add(day);
+                //Log.d("EVENT NON TROUVE", "EVENT NON TROUVE");
+            }
+        }
+
+
+        calendarViewAdapter calendarAdapter = new calendarViewAdapter(dayEventList, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -172,10 +224,10 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
 
     @Override
-    public void onItemClick(int position, LocalDate date) {
+    public void onItemClick(int position, DayModel day) {
 
-        if(date != null){
-            CalendarUtils.selectedDate = date;
+        if(day != null){
+            CalendarUtils.selectedDate = day.getDate();
             setMonthView();
         }
     }

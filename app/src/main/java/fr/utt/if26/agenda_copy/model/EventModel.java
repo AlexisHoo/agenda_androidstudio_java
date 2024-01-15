@@ -2,6 +2,9 @@ package fr.utt.if26.agenda_copy.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.DayOfWeek;
+import java.time.Month;
+
 
 @Entity(tableName = "events")
 public class EventModel {
@@ -13,6 +16,34 @@ public class EventModel {
     private String titre, description, constance, heure;
     private boolean allday;
     private int notification;
+    private int annee;
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public int getMois() {
+        return mois;
+    }
+
+    public void setMois(int mois) {
+        this.mois = mois;
+    }
+
+    public int getJour() {
+        return jour;
+    }
+
+    public void setJour(int jour) {
+        this.jour = jour;
+    }
+
+    int mois;
+    int jour;
 
     public String getCouleur() {
         return couleur;
@@ -26,7 +57,8 @@ public class EventModel {
         this.event_id = event_id;
     }
 
-    public EventModel(String titre, String description, String constance, String heure, boolean allday, int notification, String couleur) {
+
+    public EventModel(String titre, String description, String constance, String heure, boolean allday, int notification, String couleur, int annee, int mois, int jour) {
         this.titre = titre;
         this.description = description;
         this.constance = constance;
@@ -34,6 +66,9 @@ public class EventModel {
         this.allday = allday;
         this.notification = notification;
         this.couleur = couleur;
+        this.annee = annee;
+        this.mois = mois;
+        this.jour = jour;
     }
 
     public String getTitre() {

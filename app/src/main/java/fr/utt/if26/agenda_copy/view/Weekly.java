@@ -3,7 +3,10 @@ package fr.utt.if26.agenda_copy.view;
 import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.daysInWeekArray;
 import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,13 +17,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import fr.utt.if26.agenda_copy.model.DayModel;
+import fr.utt.if26.agenda_copy.model.EventModel;
 import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.viewmodel.calendarViewAdapter;
+import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
 //1:47
 
 public class Weekly extends AppCompatActivity implements calendarViewAdapter.onItemListener {
@@ -29,11 +37,25 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
     private ImageButton showMenuButton, eventButton;
     private RecyclerView calendarRecyclerViewWeek;
     private TextView weekTV;
+    private eventViewModel eventVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly);
+
+        //ROOM
+        eventVM = new ViewModelProvider(this).get(eventViewModel.class);
+        eventVM.getAllEvents().observe(this, new Observer<List<EventModel>>(){
+
+            @Override
+            public void onChanged(@NonNull List<EventModel> events){
+                Toast.makeText(Weekly.this, "OnChanged", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
         initWidgets();
         setWeekView();
 
@@ -99,7 +121,28 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
         weekTV.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
-        calendarViewAdapter calendarAdapter = new calendarViewAdapter(days, this);
+        ArrayList<DayModel> dayEventList = new ArrayList<>();
+        for(int i = 0 ; i < days.size(); i++){
+
+            //Event avec la date du jour
+            int annee = days.get(i).getYear();
+            int mois = days.get(i).getMonthValue();
+            int jour = days.get(i).getDayOfWeek().getValue();
+
+            EventModel event = eventVM.getEvent(annee, mois, jour);
+            if (event != null){
+
+                DayModel day = new DayModel(event.getTitre(), days.get(i), event.getCouleur());
+                dayEventList.add(day);
+            }
+            else{
+                DayModel day = new DayModel("", days.get(i), "#FFFFFFFF");
+                dayEventList.add(day);
+            }
+
+        }
+
+        calendarViewAdapter calendarAdapter = new calendarViewAdapter(dayEventList, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
         calendarRecyclerViewWeek.setLayoutManager(layoutManager);
         calendarRecyclerViewWeek.setAdapter(calendarAdapter);
@@ -118,9 +161,9 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
     }
 
     @Override
-    public void onItemClick(int position, LocalDate date) {
+    public void onItemClick(int position, DayModel day) {
 
-        CalendarUtils.selectedDate = date;
+        CalendarUtils.selectedDate = day.getDate();
         setWeekView();
     }
 }

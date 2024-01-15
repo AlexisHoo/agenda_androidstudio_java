@@ -33,6 +33,7 @@ public class eventViewModel extends AndroidViewModel {
 
     private eventRepository repository;
     private LiveData<List<EventModel>> allEvents;
+    private EventModel event;
 
     public eventViewModel(@NonNull Application application){
 
@@ -61,5 +62,7 @@ public class eventViewModel extends AndroidViewModel {
         return allEvents;
     }
 
-
+    public EventModel getEvent(int annee, int mois, int jour){
+        return event;
+    }
 }

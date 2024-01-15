@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import fr.utt.if26.agenda_copy.model.EventModel;
 
-@Database(entities = {EventModel.class}, version = 1)
+@Database(entities = {EventModel.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
@@ -49,7 +49,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids){
 
-            eventDao.insertEvent(new EventModel("Anniversaire Alexis", "...", "tous les jours", "Europe", true, 15, "#0000FF"));
+            eventDao.insertEvent(new EventModel("Anniversaire Alexis", "...", "tous les jours", "Europe", true, 15, "#0000FF", 2024, 01, 5));
             return null;
         }
     }

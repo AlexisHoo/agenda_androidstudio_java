@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class eventRepository {
 
     private EventDao eventDao;
     private LiveData<List<EventModel>> allEvents;
+    private EventModel event;
     public eventRepository(Application application){
         AppDatabase eventDB = AppDatabase.getInstance(application);
         eventDao = eventDB.getEventDAO();
@@ -33,9 +35,10 @@ public class eventRepository {
         new UpdateEventAsyncTask(eventDao).execute(eventModel);
     }
 
-    public void getEvent(int id){
+    @Query("select * from events where annee==:annee and mois==:mois and jour==:jour")
+    public EventModel getEvent(int annee, int mois, int jour){
 
-
+        return eventDao.getEvent(annee, mois, jour);
     }
 
     public LiveData<List<EventModel>> getAllEvents(){
