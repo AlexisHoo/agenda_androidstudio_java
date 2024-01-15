@@ -62,7 +62,7 @@ public class eventViewModel extends AndroidViewModel {
         return allEvents;
     }
 
-    public EventModel getEvent(int annee, int mois, int jour){
+    public List<EventModel> getEvent(int annee, int mois, int jour){
         return repository.getEvent(annee, mois, jour);
     }
 }

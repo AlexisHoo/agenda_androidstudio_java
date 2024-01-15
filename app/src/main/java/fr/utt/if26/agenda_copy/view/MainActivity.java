@@ -6,12 +6,10 @@ import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,16 +26,12 @@ import java.util.List;
 
 import fr.utt.if26.agenda_copy.model.DayModel;
 import fr.utt.if26.agenda_copy.model.EventModel;
-import fr.utt.if26.agenda_copy.room.AppDatabase;
 import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.viewmodel.calendarViewAdapter;
 import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
 
-import android.app.Application;
 import android.widget.Toast;
-
-import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity implements calendarViewAdapter.onItemListener {
     private TextView monthYearText;
@@ -170,12 +164,22 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
                 int mois = daysInMonth.get(i).getMonthValue();
                 int jour = daysInMonth.get(i).getDayOfMonth();
 
-                EventModel event = eventVM.getEvent(annee, mois, jour);
-                if (event != null) {
+                List<EventModel> event = eventVM.getEvent(annee, mois, jour);
+                if (!event.isEmpty()) {
 
-                    Log.d("EVENT TROUVE", event.getTitre().toString());
-                    DayModel day = new DayModel(event.getTitre().toString(), LocalDate.of(annee, mois, jour), event.getCouleur());
+                    String titreString;
+                    if(event.size() > 1 ){
+
+                        titreString = event.get(0).getTitre().toString() + "\n + " + (event.size()-1);
+                    }
+                    else{
+                        titreString = event.get(0).getTitre().toString();
+                    }
+
+                    Log.d("EVENT TROUVE", event.get(0).getTitre().toString());
+                    DayModel day = new DayModel(titreString, LocalDate.of(annee, mois, jour), event.get(0).getCouleur());
                     dayEventList.add(day);
+
                 } else {
                     Log.d("PAS TROUVE", "PAS TROUVE");
                     DayModel day = new DayModel("", LocalDate.of(annee, mois, jour), "#FFFFFFFF");
@@ -224,6 +228,14 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         if(day != null){
             CalendarUtils.selectedDate = day.getDate();
             setMonthView();
+        }
+    }
+
+    @Override
+    public void onItemLongClick(int position, DayModel day) {
+
+        if(day != null){
+            //On change d'activité
         }
     }
 }

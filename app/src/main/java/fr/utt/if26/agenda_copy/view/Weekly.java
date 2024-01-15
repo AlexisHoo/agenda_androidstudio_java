@@ -1,9 +1,11 @@
 package fr.utt.if26.agenda_copy.view;
 
+import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.daysInMonthArray;
 import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.daysInWeekArray;
 import static fr.utt.if26.agenda_copy.viewmodel.CalendarUtils.monthYearFromDate;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -79,7 +82,9 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Event.class));
+
+                Intent intent = new Intent(Weekly.this, Event.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -122,33 +127,79 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
         ArrayList<DayModel> dayEventList = new ArrayList<>();
-        for(int i = 0 ; i < days.size(); i++){
+        for(int i = 0 ; i <days.size(); i++){
 
-            //Event avec la date du jour
-            int annee = days.get(i).getYear();
-            int mois = days.get(i).getMonthValue();
-            int jour = days.get(i).getDayOfWeek().getValue();
-            /*
-            EventModel event = eventVM.getEvent(annee, mois, jour);
-            if (event != null){
+            if(days.get(i) != null) {
 
-                DayModel day = new DayModel(event.getTitre(), days.get(i), event.getCouleur());
-                dayEventList.add(day);
+                //Event avec la date du jour
+                int annee = days.get(i).getYear();
+                int mois = days.get(i).getMonthValue();
+                int jour = days.get(i).getDayOfMonth();
+
+                List<EventModel> event = eventVM.getEvent(annee, mois, jour);
+                if (!event.isEmpty()) {
+
+                    String titreString;
+                    if(event.size() > 1 ){
+
+                        titreString = event.get(0).getTitre().toString() + "\n + " + (event.size() - 1);
+                    }
+                    else{
+                        titreString = event.get(0).getTitre().toString();
+                    }
+
+                    Log.d("EVENT TROUVE", event.get(0).getTitre().toString());
+                    DayModel day = new DayModel(titreString, LocalDate.of(annee, mois, jour), event.get(0).getCouleur());
+                    dayEventList.add(day);
+
+                } else {
+                    Log.d("PAS TROUVE", "PAS TROUVE");
+                    DayModel day = new DayModel("", LocalDate.of(annee, mois, jour), "#FFFFFFFF");
+                    dayEventList.add(day);
+                }
+
+
             }
+
             else{
-                DayModel day = new DayModel("", days.get(i), "#FFFFFFFF");
+
+                DayModel day = new DayModel("", null, "#FFFFFFFF");
                 dayEventList.add(day);
+                Log.d("NULL", "NULL");
             }
-
-             */
-
         }
+
+        Log.d("TAILLE EVENTLIST", "TAILLE EVENTLIST" + dayEventList.size());
 
         calendarViewAdapter calendarAdapter = new calendarViewAdapter(dayEventList, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
         calendarRecyclerViewWeek.setLayoutManager(layoutManager);
         calendarRecyclerViewWeek.setAdapter(calendarAdapter);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String title = data.getStringExtra("Titre");
+        String description = data.getStringExtra("Description");
+        String constance = data.getStringExtra("constance");
+        String heure = data.getStringExtra("heure");
+        Boolean allday = data.getBooleanExtra("allday", false);
+        int notification = data.getIntExtra("notification", 15);
+        String couleur = data.getStringExtra("couleur");
+
+
+        EventModel eventModel = new EventModel(title, description, constance, heure, allday, notification, couleur, CalendarUtils.selectedDate.getYear(), CalendarUtils.selectedDate.getMonth().getValue(), CalendarUtils.selectedDate.getDayOfMonth());
+        String anneeE = Integer.toString( CalendarUtils.selectedDate.getYear() );
+        String moisE = Integer.toString( CalendarUtils.selectedDate.getMonth().getValue() );
+        String jourE = Integer.toString( CalendarUtils.selectedDate.getDayOfMonth());
+        //Log.d("EVENT CREEE",  "EVENT CREEE" +  anneeE + moisE + jourE );
+        Toast.makeText(this, "EVENT CREEE" +  anneeE + moisE + jourE, Toast.LENGTH_SHORT).show();
+        eventVM.insert(eventModel);
+
+        setWeekView();
     }
 
     private void initWidgets() {

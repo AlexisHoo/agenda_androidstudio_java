@@ -36,7 +36,7 @@ public class eventRepository {
     }
 
     //@Query("select events.titre from events where annee==:annee and mois==:mois and jour==:jour")
-    public EventModel getEvent(int annee, int mois, int jour){
+    public List<EventModel> getEvent(int annee, int mois, int jour){
 
         return eventDao.getEvent(annee, mois, jour);
     }

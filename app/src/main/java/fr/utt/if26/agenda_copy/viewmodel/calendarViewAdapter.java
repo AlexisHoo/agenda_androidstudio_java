@@ -79,6 +79,8 @@ public class calendarViewAdapter extends RecyclerView.Adapter<calendarViewHolder
 
     public interface onItemListener{
         void onItemClick(int position, DayModel day);
+
+        void onItemLongClick(int position, DayModel day);
     }
 }
 
