@@ -16,9 +16,14 @@ import java.util.List;
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.model.EventModel;
 
-public class eventAdapter extends RecyclerView.Adapter<eventAdapter.eventHolder> {
+public class eventAdapter extends RecyclerView.Adapter<eventAdapter.eventHolder>{
 
     private List<EventModel> listOfEvents = new ArrayList<>();
+    private SelectEvent selectEvent;
+
+    public eventAdapter(SelectEvent selectEvent){
+        this.selectEvent = selectEvent;
+    }
 
     @NonNull
     @Override
@@ -34,6 +39,12 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.eventHolder>
         EventModel event = listOfEvents.get(position);
         holder.button.setText(event.getTitre());
         holder.button.setBackgroundColor(Color.parseColor(event.getCouleur()));
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectEvent.onItemClicked(event);
+            }
+        });
     }
 
     @Override
@@ -52,6 +63,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.eventHolder>
         public eventHolder(@NonNull View itemView) {
             super(itemView);
             button = itemView.findViewById(R.id.button);
+
         }
     }
 

@@ -19,9 +19,10 @@ import java.util.List;
 import fr.utt.if26.agenda_copy.R;
 import fr.utt.if26.agenda_copy.model.EventModel;
 import fr.utt.if26.agenda_copy.viewmodel.CalendarUtils;
+import fr.utt.if26.agenda_copy.viewmodel.SelectEvent;
 import fr.utt.if26.agenda_copy.viewmodel.eventAdapter;
 
-public class AffichageDaily extends AppCompatActivity {
+public class AffichageDaily extends AppCompatActivity implements SelectEvent{
 
     ImageButton burgerButton;
     TextView monthYearTv, dateOfTheDay, eventAnnouncement;
@@ -43,7 +44,7 @@ public class AffichageDaily extends AppCompatActivity {
         eventRecycler.setLayoutManager(new LinearLayoutManager((this)));
         eventRecycler.setHasFixedSize(true);
 
-        eventAdapter adapterEvent = new eventAdapter();
+        eventAdapter adapterEvent = new eventAdapter(this);
         eventRecycler.setAdapter(adapterEvent);
         adapterEvent.setListOfEvents(eventList);
 
@@ -110,16 +111,12 @@ public class AffichageDaily extends AppCompatActivity {
         popupMenu.show(); // Affichage du menu contextuel
     }
 
-    /*
     @Override
-    public void onItemClick(int position, EventModel event) {
+    public void onItemClicked(EventModel event) {
 
-        Toast.makeText(this, "JOOJOJOJO", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(AffichageDaily.this, AffichaeEvent.class);
         intent.putExtra("EXTRA_KEY", event);
         startActivity(intent);
     }
-
-     */
 
 }
