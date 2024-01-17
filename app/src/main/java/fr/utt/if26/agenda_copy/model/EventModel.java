@@ -13,7 +13,7 @@ public class EventModel implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int event_id;
 
-    private final String couleur;
+    private String couleur;
     private String titre, description, constance, heure;
     private boolean allday;
     private int notification;
@@ -38,6 +38,10 @@ public class EventModel implements Serializable {
 
     public int getJour() {
         return jour;
+    }
+
+    public void setCouleur(String couleur){
+        this.couleur = couleur;
     }
 
     public void setJour(int jour) {

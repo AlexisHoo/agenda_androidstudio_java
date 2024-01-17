@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
             @Override
             public void onChanged(@NonNull List<EventModel> events){
                 //Toast.makeText(MainActivity.this, "OnChanged", Toast.LENGTH_SHORT).show();
+                setMonthView();
             }
 
         });
@@ -235,8 +236,8 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
                 //Toast.makeText(this, "MEME DATE", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, AffichageDaily.class);
-                List<EventModel> eventList = eventVM.getEvent(day.getDate().getYear(), day.getDate().getMonthValue(), day.getDate().getDayOfMonth());
-                intent.putExtra("listeEvenements", (Serializable) eventList); // Utilisez "parcelable" si vous avez implémenté Parcelable
+                //List<EventModel> eventList = eventVM.getEvent(day.getDate().getYear(), day.getDate().getMonthValue(), day.getDate().getDayOfMonth());
+                intent.putExtra("listeEvenements", (Serializable) day); // Utilisez "parcelable" si vous avez implémenté Parcelable
                 startActivity(intent);
             }
             else{

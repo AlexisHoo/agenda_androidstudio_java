@@ -28,5 +28,8 @@ public interface EventDao {
     @Query("select * from events where annee = :annee and mois = :mois and jour = :jour")
     public List<EventModel> getEvent(int annee, int mois, int jour);
 
+    @Query("select * from events where annee = :annee and mois = :mois and jour = :jour")
+    public LiveData<List<EventModel>> getEventLive(int annee, int mois, int jour);
+
 }
 

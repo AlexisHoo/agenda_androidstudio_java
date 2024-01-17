@@ -11,6 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import fr.utt.if26.agenda_copy.R;
@@ -39,12 +41,24 @@ public class Event extends AppCompatActivity {
     private Button couleur_button, enregistrer;
     private ImageButton exit;
     EditText titre, description;
+    EventModel event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         initWidgets();
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("event")) {
+
+            event = (EventModel) intent.getSerializableExtra("event");
+            setAffichage(event);
+
+            Toast.makeText(this, "Valeur extra : " + event.getTitre(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Aucune valeur extra trouvée", Toast.LENGTH_SHORT).show();
+        }
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -61,7 +75,7 @@ public class Event extends AppCompatActivity {
                     dialog.show();
 
                 } else if (view == couleur_layout) {
-                    final String[] options = {"Couleur par défaut", "Tomate", "Basilic", "Flamant Rose"};
+                    final String[] options = {"Default", "Tomate", "Basilic", "Rose"};
                     AlertDialog.Builder dialog = eventUtils.afficherDialogConstance(Event.this, options, 2, txt_couleur, couleur_button);
                     dialog.show();
 
@@ -81,7 +95,12 @@ public class Event extends AppCompatActivity {
                     data.putExtra("constance",eventUtils.choix_radiobutton[0]);
                     data.putExtra("heure", eventUtils.choix_radiobutton[1]);
                     data.putExtra("allday", checkBox.isChecked());
-                    data.putExtra("notification", new Integer(eventUtils.choix_radiobutton[3].substring(0,2)));
+                    if(eventUtils.choix_radiobutton[3].substring(0,1).equals("1")){
+                        data.putExtra("notification", new Integer(eventUtils.choix_radiobutton[3].substring(0,1)));
+                    }
+                    else{
+                        data.putExtra("notification", new Integer(eventUtils.choix_radiobutton[3].substring(0,2)));
+                    }
                     data.putExtra("couleur", eventUtils.couleur);
 
                     setResult(RESULT_OK, data);
@@ -89,7 +108,6 @@ public class Event extends AppCompatActivity {
 
                 } else if (view == exit) {
 
-                    //startActivity(new Intent( getApplicationContext(), MainActivity.class));
                     finish();
                 }
             }
@@ -101,6 +119,49 @@ public class Event extends AppCompatActivity {
         notification_layout.setOnClickListener(onClickListener);
         enregistrer.setOnClickListener(onClickListener);
         exit.setOnClickListener(onClickListener);
+    }
+
+    private void setAffichage(EventModel event) {
+
+        titre.setText(event.getTitre());
+        checkBox.setChecked(event.isAllday());
+        txt_heure.setText(event.getHeure());
+        txt_constance.setText((event.getConstance()));
+        couleur_button.setBackgroundColor(Color.parseColor(event.getCouleur()));
+
+        int couleurInt = Color.parseColor(event.getCouleur());
+        String nomCouleur = getNomCouleur(couleurInt);
+        txt_couleur.setText(nomCouleur);
+        description.setText(event.getDescription());
+
+        if(event.getNotification() == 15 && event.getNotification() == 30){
+
+            txt_notification.setText(String.valueOf(event.getNotification()) + " minutes avant");
+        }
+        else if(event.getNotification() == 1){
+            txt_notification.setText(String.valueOf(event.getNotification()) + " heure avant");
+        }
+        else{
+            txt_notification.setText(String.valueOf(event.getNotification()) + " heures avant");
+        }
+    }
+
+    private String getNomCouleur(int couleurInt) {
+        String nomCouleur = "Inconnu";
+
+        for (Field field : R.color.class.getFields()) {
+            try {
+                int resId = field.getInt(null);
+                if (resId == couleurInt) {
+                    nomCouleur = field.getName();
+                    break;
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return nomCouleur;
     }
 
     private void initWidgets() {

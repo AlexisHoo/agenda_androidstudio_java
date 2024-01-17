@@ -1,8 +1,9 @@
 package fr.utt.if26.agenda_copy.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class DayModel {
+public class DayModel implements Serializable {
 
     private String title, couleur;
 

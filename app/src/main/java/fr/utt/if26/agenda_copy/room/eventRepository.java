@@ -41,6 +41,11 @@ public class eventRepository {
         return eventDao.getEvent(annee, mois, jour);
     }
 
+    public LiveData<List<EventModel>> getEventLive(int annee, int mois, int jour){
+
+        return eventDao.getEventLive(annee, mois, jour);
+    }
+
     public LiveData<List<EventModel>> getAllEvents(){
         return allEvents;
     }

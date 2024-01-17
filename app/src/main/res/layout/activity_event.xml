@@ -237,7 +237,8 @@
                 android:ems="10"
                 android:textSize="14sp"
                 android:inputType=""
-                android:text="Ajouter une description" />
+                android:hint="Ajouter un titre"
+                android:layout_gravity="center_vertical"/>
 
 
         </LinearLayout>

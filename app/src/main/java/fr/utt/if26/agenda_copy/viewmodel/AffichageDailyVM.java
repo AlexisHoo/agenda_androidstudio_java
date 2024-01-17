@@ -11,26 +11,21 @@ import java.util.List;
 import fr.utt.if26.agenda_copy.model.EventModel;
 import fr.utt.if26.agenda_copy.room.eventRepository;
 
-public class AffichageEventVM extends AndroidViewModel {
+public class AffichageDailyVM extends AndroidViewModel {
 
     private eventRepository repository;
 
-    public void delete(EventModel eventModel){
-
-        repository.delete(eventModel);
-    }
-
-    public void update(EventModel eventModel){
-
-        repository.update(eventModel);
-    }
-
-    public AffichageEventVM(@NonNull Application application) {
-        super(application);
-        repository = new eventRepository(application);
+    public List<EventModel> getEvent(int annee, int mois, int jour){
+        return repository.getEvent(annee, mois, jour);
     }
 
     public LiveData<List<EventModel>> getEventLive(int annee, int mois, int jour){
         return repository.getEventLive(annee, mois, jour);
+    }
+
+
+    public AffichageDailyVM(@NonNull Application application) {
+        super(application);
+        repository = new eventRepository(application);
     }
 }

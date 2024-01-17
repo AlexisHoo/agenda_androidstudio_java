@@ -8,9 +8,9 @@
     <color name="plus_color">#B7D9EC</color>
     <color name="enregistrer">#0769A0</color>
 
-    <color name="Defaut">#0000FF</color>
+    <color name="Default">#0000FF</color>
     <color name="Tomate">#D50000</color>
-    <color name="Flamant">#E67C73</color>
+    <color name="Rose">#E67C73</color>
     <color name="Basilic">#0B8043</color>
 
 </resources>
