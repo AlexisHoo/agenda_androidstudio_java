@@ -53,7 +53,7 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
 
             @Override
             public void onChanged(@NonNull List<EventModel> events){
-                Toast.makeText(Weekly.this, "OnChanged", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Weekly.this, "OnChanged", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -148,12 +148,12 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
                         titreString = event.get(0).getTitre().toString();
                     }
 
-                    Log.d("EVENT TROUVE", event.get(0).getTitre().toString());
+                    //Log.d("EVENT TROUVE", event.get(0).getTitre().toString());
                     DayModel day = new DayModel(titreString, LocalDate.of(annee, mois, jour), event.get(0).getCouleur());
                     dayEventList.add(day);
 
                 } else {
-                    Log.d("PAS TROUVE", "PAS TROUVE");
+                    //Log.d("PAS TROUVE", "PAS TROUVE");
                     DayModel day = new DayModel("", LocalDate.of(annee, mois, jour), "#FFFFFFFF");
                     dayEventList.add(day);
                 }

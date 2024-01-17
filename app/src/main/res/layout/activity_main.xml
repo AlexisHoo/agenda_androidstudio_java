@@ -141,12 +141,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_weight="1"/>
+        android:layout_height="415dp"
+        android:layout_weight="1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="100dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="93dp"

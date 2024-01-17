@@ -104,6 +104,9 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
         super.onActivityResult(requestCode, resultCode, data);
 
         String title = data.getStringExtra("Titre");
+        if(title.equals("")){
+            title = "Sans titre";
+        }
         String description = data.getStringExtra("Description");
         String constance = data.getStringExtra("constance");
         String heure = data.getStringExtra("heure");
@@ -230,14 +233,14 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
 
             if(day.getDate().compareTo(CalendarUtils.selectedDate) == 0){
 
-                Toast.makeText(this, "MEME DATE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "MEME DATE", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, AffichageDaily.class);
                 List<EventModel> eventList = eventVM.getEvent(day.getDate().getYear(), day.getDate().getMonthValue(), day.getDate().getDayOfMonth());
                 intent.putExtra("listeEvenements", (Serializable) eventList); // Utilisez "parcelable" si vous avez implémenté Parcelable
                 startActivity(intent);
             }
             else{
-                Toast.makeText(this, "PAS MEME DATE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "PAS MEME DATE", Toast.LENGTH_SHORT).show();
                 CalendarUtils.selectedDate = day.getDate();
                 setMonthView();
             }

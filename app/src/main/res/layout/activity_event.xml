@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:inputType="text"
-            android:text="Ajouter un titre"
+            android:hint="Ajouter un titre"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 

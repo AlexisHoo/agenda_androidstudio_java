@@ -53,11 +53,6 @@ public class eventViewModel extends AndroidViewModel {
         repository.update(eventModel);
     }
 
-    public void delete(EventModel eventModel){
-
-        repository.delete(eventModel);
-    }
-
     public LiveData<List<EventModel>> getAllEvents (){
         return allEvents;
     }
