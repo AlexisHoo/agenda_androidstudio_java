@@ -112,25 +112,30 @@ public class MainActivity extends AppCompatActivity implements calendarViewAdapt
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        String title = data.getStringExtra("Titre");
-        if(title.equals("")){
-            title = "Sans titre";
+        if(data != null){
+
+            String title = data.getStringExtra("Titre");
+            if(title.equals("")){
+                title = "Sans titre";
+            }
+            String description = data.getStringExtra("Description");
+            String constance = data.getStringExtra("constance");
+            String heure = data.getStringExtra("heure");
+            Boolean allday = data.getBooleanExtra("allday", false);
+            int notification = data.getIntExtra("notification", 15);
+            String couleur = data.getStringExtra("couleur");
+
+
+            EventModel eventModel = new EventModel(title, description, constance, heure, allday, notification, couleur, CalendarUtils.selectedDate.getYear(), CalendarUtils.selectedDate.getMonth().getValue(), CalendarUtils.selectedDate.getDayOfMonth());
+            String anneeE = Integer.toString( CalendarUtils.selectedDate.getYear() );
+            String moisE = Integer.toString( CalendarUtils.selectedDate.getMonth().getValue() );
+            String jourE = Integer.toString( CalendarUtils.selectedDate.getDayOfMonth());
+            //Log.d("EVENT CREEE",  "EVENT CREEE" +  anneeE + moisE + jourE );
+            //Toast.makeText(this, "EVENT CREEE" +  anneeE + moisE + jourE, Toast.LENGTH_SHORT).show();
+            eventVM.insert(eventModel);
         }
-        String description = data.getStringExtra("Description");
-        String constance = data.getStringExtra("constance");
-        String heure = data.getStringExtra("heure");
-        Boolean allday = data.getBooleanExtra("allday", false);
-        int notification = data.getIntExtra("notification", 15);
-        String couleur = data.getStringExtra("couleur");
 
 
-        EventModel eventModel = new EventModel(title, description, constance, heure, allday, notification, couleur, CalendarUtils.selectedDate.getYear(), CalendarUtils.selectedDate.getMonth().getValue(), CalendarUtils.selectedDate.getDayOfMonth());
-        String anneeE = Integer.toString( CalendarUtils.selectedDate.getYear() );
-        String moisE = Integer.toString( CalendarUtils.selectedDate.getMonth().getValue() );
-        String jourE = Integer.toString( CalendarUtils.selectedDate.getDayOfMonth());
-        //Log.d("EVENT CREEE",  "EVENT CREEE" +  anneeE + moisE + jourE );
-        Toast.makeText(this, "EVENT CREEE" +  anneeE + moisE + jourE, Toast.LENGTH_SHORT).show();
-        eventVM.insert(eventModel);
     }
 
     private void showPopupMenu(View v) {

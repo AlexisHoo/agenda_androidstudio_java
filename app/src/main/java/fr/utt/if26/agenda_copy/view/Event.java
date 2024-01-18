@@ -55,9 +55,9 @@ public class Event extends AppCompatActivity {
             event = (EventModel) intent.getSerializableExtra("event");
             setAffichage(event);
 
-            Toast.makeText(this, "Valeur extra : " + event.getTitre(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Valeur extra : " + event.getTitre(), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Aucune valeur extra trouvée", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Aucune valeur extra trouvée", Toast.LENGTH_SHORT).show();
         }
 
         View.OnClickListener onClickListener = new View.OnClickListener() {

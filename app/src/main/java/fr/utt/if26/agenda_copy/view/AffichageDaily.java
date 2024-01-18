@@ -58,7 +58,7 @@ public class AffichageDaily extends AppCompatActivity implements SelectEvent{
         affichageDailyVM.getEventLive(day.getDate().getYear(), day.getDate().getMonthValue(), day.getDate().getDayOfMonth()).observe(this, new Observer<List<EventModel>>(){
             @Override
             public void onChanged(@NonNull List<EventModel> events){
-                Toast.makeText(AffichageDaily.this, "Live data getEvent", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AffichageDaily.this, "Live data getEvent", Toast.LENGTH_SHORT).show();
                 int tt = events.size();
                 initShow(tt);
                 adapterEvent.setListOfEvents(events);

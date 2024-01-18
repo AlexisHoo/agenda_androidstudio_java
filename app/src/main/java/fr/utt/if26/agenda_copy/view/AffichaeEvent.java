@@ -54,7 +54,7 @@ public class AffichaeEvent extends AppCompatActivity {
 
             //Toast.makeText(this, "Valeur extra : " + valeurExtra, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Aucune valeur extra trouvée", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Aucune valeur extra trouvée", Toast.LENGTH_SHORT).show();
         }
 
         affichageEventVM.getEventLive(event.getAnnee(), event.getMois(), event.getJour()).observe(this, new Observer<List<EventModel>>(){
