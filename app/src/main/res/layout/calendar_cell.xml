@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/parentView"
+    android:background="@drawable/background_cell"
     android:layout_height="match_parent">
 
     <TextView
@@ -16,20 +18,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"/>
+        app:layout_constraintVertical_bias="0.127" />
 
     <TextView
         android:id="@+id/first_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_cell"
         android:text=""
         android:textColor="@color/white"
-        android:textSize="5sp"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@id/number_event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cellDayText" />
+
+    <TextView
+        android:id="@+id/number_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_cell"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cellDayText"
-        app:layout_constraintVertical_bias="0.409" />
+        app:layout_constraintTop_toBottomOf="@+id/first_event"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package fr.utt.if26.agenda_copy.viewmodel;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,8 @@ import fr.utt.if26.agenda_copy.model.DayModel;
 
 public class calendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public final TextView dayOfMonth, event_text;
+    public final TextView dayOfMonth;
+    public final TextView event_text, number_event;
     //private final ArrayList<LocalDate> days;
     public final View parentView;
     private final calendarViewAdapter.onItemListener onItemListener;
@@ -25,6 +27,7 @@ public class calendarViewHolder extends RecyclerView.ViewHolder implements View.
         super(itemView);
         dayOfMonth = itemView.findViewById(R.id.cellDayText);
         event_text = itemView.findViewById(R.id.first_event);
+        number_event = itemView.findViewById(R.id.number_event);
         parentView = itemView.findViewById(R.id.parentView);
         this.onItemListener = onItemListener;
         itemView.setOnClickListener(this);

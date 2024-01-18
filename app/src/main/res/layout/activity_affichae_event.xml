@@ -27,14 +27,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:layout_marginRight="220dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:id="@+id/exit"
-
+                android:layout_marginRight="180dp"
+                android:layout_marginLeft="10dp"
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_1">
+                android:scaleType="center"
+                android:src="@drawable/exit">
 
             </ImageButton>
 
@@ -42,13 +42,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:adjustViewBounds="true"
                 android:id="@+id/modifier"
 
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_1">
+                android:scaleType="center"
+                android:src="@drawable/edit">
 
             </ImageButton>
 
@@ -56,13 +56,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:adjustViewBounds="true"
                 android:id="@+id/supprimer"
 
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_1">
+                android:scaleType="center"
+                android:src="@drawable/delete">
 
             </ImageButton>
 
@@ -74,6 +74,7 @@
             android:id="@+id/layout_couleur"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -81,7 +82,8 @@
 
             <Button
                 android:id="@+id/couleur_button"
-                android:layout_width="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/enregistrer">
 
@@ -92,18 +94,28 @@
                 android:id="@+id/titre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
+                android:layout_marginStart="30dp"
                 android:hint="Ajouter un titre"
                 android:inputType="text"
+                android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="1.5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_ajout_event"
+            android:text=" ezefzefzefzefz"></TextView>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -116,6 +128,7 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/img_3" />
 
             <TextView
@@ -128,10 +141,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="1.5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_ajout_event"
+            android:text=" ezefzefzefzefz"></TextView>
+
         <LinearLayout
-            android:layout_width="match_parent"
             android:id="@+id/layout_description"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -141,21 +164,22 @@
                 android:id="@+id/text_img"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_earth"/>
+                android:scaleType="center"
+                android:src="@drawable/description" />
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:ems="10"
-                android:textSize="14sp"
                 android:inputType=""
-                android:layout_gravity="center_vertical"
-                android:text="Ajouter une description" />
+                android:text="Ajouter une description"
+                android:textSize="14sp" />
 
 
         </LinearLayout>

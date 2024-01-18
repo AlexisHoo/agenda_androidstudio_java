@@ -17,7 +17,7 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,23 +27,24 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:layout_marginRight="220dp"
+                android:layout_marginRight="199dp"
                 android:layout_weight="1"
+
                 android:adjustViewBounds="true"
                 android:id="@+id/exit"
 
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_1">
+                android:scaleType="center"
+                android:src="@drawable/exit">
 
             </ImageButton>
 
             <Button
                 android:id="@+id/enregistrer"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_weight="2.7"
+                android:layout_weight="1.8"
                 android:backgroundTint="@color/enregistrer"
                 android:text="Enregistrer"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
@@ -60,17 +61,19 @@
 
         <EditText
             android:id="@+id/titre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="158dp"
+            android:layout_height="67dp"
             android:layout_marginStart="70dp"
-            android:inputType="text"
             android:hint="Ajouter un titre"
+            android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -79,6 +82,7 @@
             <ImageView
                 android:id="@+id/myImageView"
                 android:layout_width="50dp"
+                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
@@ -88,12 +92,14 @@
             <TextView
                 android:layout_width="306dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="Toute la journée"></TextView>
 
 
             <CheckBox
                 android:id="@+id/myCheckBox"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:text="" />
 
@@ -103,7 +109,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/layout_heure"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -115,8 +121,9 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_earth" />
+                android:scaleType="center"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/earth" />
 
             <TextView
                 android:id="@+id/txt_heure"
@@ -130,7 +137,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/layout_constance"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -142,8 +149,9 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_earth"/>
+                android:scaleType="center"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/redo"/>
 
             <TextView
                 android:id="@+id/txt_constance"
@@ -154,10 +162,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="1.5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_ajout_event"
+            android:text=" ezefzefzefzefz"></TextView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/layout_notification"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -169,8 +186,9 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_earth"
+                android:scaleType="center"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/notifications"
                  />
 
             <TextView
@@ -182,10 +200,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="1.5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_ajout_event"
+            android:text=" ezefzefzefzefz"></TextView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/layout_couleur"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -193,8 +220,9 @@
 
             <Button
                 android:id="@+id/couleur_button"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_width="47dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/enregistrer">
 
 
@@ -211,10 +239,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="1.5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_ajout_event"
+            android:text=" ezefzefzefzefz"></TextView>
+
         <LinearLayout
-            android:layout_width="match_parent"
             android:id="@+id/layout_description"
-            android:layout_height="50dp"
+            android:layout_width="381dp"
+            android:layout_height="120dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titre"
@@ -224,21 +261,22 @@
                 android:id="@+id/text_img"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_earth"/>
+                android:scaleType="center"
+                android:src="@drawable/description" />
 
             <EditText
                 android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="333dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:ems="10"
-                android:textSize="14sp"
-                android:inputType=""
                 android:hint="Ajouter un titre"
-                android:layout_gravity="center_vertical"/>
+                android:inputType=""
+                android:textSize="14sp" />
 
 
         </LinearLayout>

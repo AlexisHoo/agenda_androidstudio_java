@@ -13,4 +13,7 @@
     <color name="Rose">#E67C73</color>
     <color name="Basilic">#0B8043</color>
 
+    <color name="contour">#90B5C7</color>
+    <color name="highlight">#7BA0B2</color>
+
 </resources>

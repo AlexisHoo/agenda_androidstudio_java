@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -32,7 +33,8 @@ import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
 public class AffichageDaily extends AppCompatActivity implements SelectEvent{
 
     ImageButton burgerButton;
-    TextView monthYearTv, dateOfTheDay, eventAnnouncement;
+    TextView monthYearTv, eventAnnouncement;
+    Button dateOfTheDay;
 
     RecyclerView eventRecycler;
 
@@ -78,7 +80,10 @@ public class AffichageDaily extends AppCompatActivity implements SelectEvent{
 
     private void initShow(int eventNumber) {
 
-        monthYearTv.setText( String.valueOf(monthYearFromDate(CalendarUtils.selectedDate) ));
+        String title = monthYearFromDate(CalendarUtils.selectedDate);
+        title = Character.toUpperCase(title.charAt(0)) + title.substring(1);
+
+        monthYearTv.setText(title);
         dateOfTheDay.setText( String.valueOf(CalendarUtils.selectedDate.getDayOfMonth()));
         eventAnnouncement.setText("Il y a " + eventNumber + " event(s): ");
     }

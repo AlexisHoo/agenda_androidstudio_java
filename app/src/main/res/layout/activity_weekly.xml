@@ -40,10 +40,9 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/previousWeek"
-            android:text="@string/backward"
-
+            android:src="@drawable/before"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:backgroundTint="@color/grey_white"
@@ -60,16 +59,17 @@
             android:id="@+id/weekTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="2"
             android:text="Nov 2023"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="RtlCompat" />
 
-        <Button
+        <ImageButton
             android:id="@+id/nextWeek"
-            android:text="@string/forward"
-
+            android:src="@drawable/next"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:backgroundTint="@color/grey_white"
@@ -86,13 +86,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Sun"
+            android:text="D"
             android:textColor="@color/grey"
             android:textAlignment="center"
             android:textSize="16sp"/>
@@ -101,7 +102,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Mon"
+            android:text="L"
             android:textColor="@color/grey"
             android:textAlignment="center"
             android:textSize="16sp"/>
@@ -110,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tue"
+            android:text="M"
             android:textColor="@color/grey"
             android:textAlignment="center"
             android:textSize="16sp"/>
@@ -119,7 +120,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Wed"
+            android:text="M"
             android:textColor="@color/grey"
             android:textAlignment="center"
             android:textSize="16sp"/>
@@ -128,7 +129,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Thu"
+            android:text="J"
             android:textColor="@color/grey"
             android:textAlignment="center"
             android:textSize="16sp"/>
@@ -137,7 +138,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Fri"
+            android:text="V"
             android:textColor="@color/grey"
             android:textAlignment="center"
             android:textSize="16sp"/>
@@ -146,7 +147,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Sat"
+            android:text="S"
             android:textColor="@color/grey"
             android:textAlignment="center"
             android:textSize="16sp"/>
@@ -156,12 +157,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView_week"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="440dp"
         android:layout_weight="1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="200dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="93dp"

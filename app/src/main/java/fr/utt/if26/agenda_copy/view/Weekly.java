@@ -36,7 +36,7 @@ import fr.utt.if26.agenda_copy.viewmodel.eventViewModel;
 
 public class Weekly extends AppCompatActivity implements calendarViewAdapter.onItemListener {
 
-    private Button previousWeek, nextWeek;
+    private ImageButton previousWeek, nextWeek;
     private ImageButton showMenuButton, eventButton;
     private RecyclerView calendarRecyclerViewWeek;
     private TextView weekTV;
@@ -123,7 +123,10 @@ public class Weekly extends AppCompatActivity implements calendarViewAdapter.onI
 
     private void setWeekView() {
 
-        weekTV.setText(monthYearFromDate(CalendarUtils.selectedDate));
+        String title = monthYearFromDate(CalendarUtils.selectedDate);
+        title = Character.toUpperCase(title.charAt(0)) + title.substring(1);
+
+        weekTV.setText(title);
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
         ArrayList<DayModel> dayEventList = new ArrayList<>();
